@@ -40,9 +40,27 @@
   // Client transformations
   var tGrid = document.querySelector('[data-transformations]');
   if (tGrid && cfg.transformations) {
+    // Optimised .webp images ship as name.webp (800px) + name-400.webp (400px)
+    var responsive = function (src, sizes) {
+      if (!/\.webp$/.test(src)) return '';
+      return ' srcset="' + escapeHtml(src.replace(/\.webp$/, '-400.webp')) + ' 400w, ' + escapeHtml(src) + ' 800w" sizes="' + sizes + '"';
+    };
+    var photo = function (p, tag, alt) {
+      return '<div class="transform-card__photo">' +
+        '<img src="' + escapeHtml(p.image) + '"' + responsive(p.image, '(max-width: 600px) 50vw, 260px') +
+        ' alt="' + escapeHtml(alt) + '" width="400" height="600" loading="lazy" decoding="async">' +
+        '<span class="transform-card__tag transform-card__tag--' + tag + '">' + tag + (p.label ? ' · ' + escapeHtml(p.label) : '') + '</span>' +
+        '</div>';
+    };
     tGrid.innerHTML = cfg.transformations.map(function (t) {
-      return '<figure class="transform-card reveal">' +
-        '<img src="' + escapeHtml(t.image) + '" alt="' + escapeHtml(t.name + ' — ' + t.result) + '" width="600" height="750" loading="lazy">' +
+      var media = t.before && t.after
+        ? '<div class="transform-card__pair">' +
+            photo(t.before, 'Before', t.name + ' before') +
+            photo(t.after, 'After', t.name + ' after') +
+          '</div>'
+        : '<img src="' + escapeHtml(t.image) + '"' + responsive(t.image, '(max-width: 600px) 100vw, 520px') +
+          ' alt="' + escapeHtml(t.name + ' — ' + t.result) + '" width="600" height="750" loading="lazy" decoding="async">';
+      return '<figure class="transform-card reveal">' + media +
         '<figcaption><strong>' + escapeHtml(t.result) + '</strong><span>' + escapeHtml(t.name) + '</span></figcaption>' +
         '</figure>';
     }).join('');

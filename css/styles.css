@@ -204,7 +204,7 @@ p { margin: 0 0 1em; }
 .section__cta-note { font-weight: 600; color: #b94d00; font-size: .95rem; }
 
 /* Transformations */
-.transform-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.transform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 520px)); justify-content: center; gap: 20px; }
 .transform-card {
   margin: 0; overflow: hidden;
   background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm);
@@ -212,9 +212,19 @@ p { margin: 0 0 1em; }
 }
 .transform-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .transform-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.transform-card__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: var(--white); }
+.transform-card__photo { position: relative; }
+.transform-card__pair img { aspect-ratio: 2 / 3; }
+.transform-card__tag {
+  position: absolute; left: 10px; bottom: 10px;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: .8rem; font-weight: 800; letter-spacing: .02em;
+  background: rgba(16, 35, 58, .78); color: var(--white);
+}
+.transform-card__tag--After { background: linear-gradient(135deg, #38bdf8, #0284c7); }
 .transform-card figcaption { padding: 14px 18px 16px; }
-.transform-card strong { display: block; color: var(--blue-600); }
-.transform-card span { font-size: .9rem; color: var(--ink-2); }
+.transform-card strong { display: block; font-size: 1.15rem; color: var(--blue-600); }
+.transform-card figcaption span { font-size: .9rem; color: var(--ink-2); }
 
 /* Split */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
@@ -575,7 +585,7 @@ p { margin: 0 0 1em; }
   .hero__media { max-width: 520px; margin: 0 auto; width: 100%; }
   .hero__badge { left: 12px; }
   .programme__copy, .book__aside { position: static; }
-  .feature-grid, .transform-grid, .review-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-grid, .review-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 860px) {
@@ -605,8 +615,8 @@ p { margin: 0 0 1em; }
   .hero__actions .btn { flex: 1 1 100%; }
   .hero__stats li { flex-basis: calc(50% - 7px); padding: 12px 14px; }
   .hero__stats li:last-child { flex-basis: 100%; }
-  .feature-grid, .transform-grid, .review-grid { grid-template-columns: 1fr; }
-  .transform-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .feature-grid, .review-grid { grid-template-columns: 1fr; }
+  .transform-grid { grid-template-columns: 1fr; }
   .transform-card figcaption { padding: 10px 12px 12px; font-size: .9rem; }
   .recipe-grid { gap: 12px; }
   .recipe-card:nth-child(even) { transform: translateY(16px); }

@@ -29,15 +29,23 @@ window.NUTRILEAN = {
   // Leave empty to send bookings over WhatsApp only.
   formEndpoint: '',
 
-  // Client transformation photos. Upload images to the given path
-  // (same file name) and they will appear automatically.
+  // Client transformation photos. Use before/after for a side-by-side card,
+  // or a single image. Upload images to the given path.
   transformations: [
-    { image: 'assets/images/transformations/client-1.jpg', name: 'Client name', result: 'Lost 12 kg in 4 months' },
-    { image: 'assets/images/transformations/client-2.jpg', name: 'Client name', result: 'Lost 9 kg in 3 months' },
-    { image: 'assets/images/transformations/client-3.jpg', name: 'Client name', result: 'Lost 15 kg in 6 months' },
-    { image: 'assets/images/transformations/client-4.jpg', name: 'Client name', result: 'Lost 7 kg in 2 months' },
-    { image: 'assets/images/transformations/client-5.jpg', name: 'Client name', result: 'Lost 11 kg in 4 months' },
-    { image: 'assets/images/transformations/client-6.jpg', name: 'Client name', result: 'Lost 18 kg in 7 months' }
+    {
+      name: 'Om Shedage',
+      result: '38 kg fat loss in 5 months',
+      before: { image: 'assets/images/transformations/om-shedage-before.webp', label: '110 kg' },
+      after: { image: 'assets/images/transformations/om-shedage-after.webp', label: '72 kg' }
+    },
+    {
+      name: 'Ganesh Gauransh Shivatare',
+      result: '21 kg fat loss in 90 days',
+      before: { image: 'assets/images/transformations/gauransh-shivatare-before.webp' },
+      after: { image: 'assets/images/transformations/gauransh-shivatare-after.webp' }
+    }
+    // Single photo instead of before/after:
+    // { name: 'Client name', result: 'Lost 12 kg in 4 months', image: 'assets/images/transformations/client-2.jpg' }
   ],
 
   // Review videos / posts on YouTube and Instagram.
