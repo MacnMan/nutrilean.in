@@ -1,4 +1,5 @@
-# Handwritten planning notes — not part of the website
-images/
-docs/
-README.md
+# Handwritten planning notes and docs — not part of the website.
+# Leading slash = only the top-level folder (assets/images/ must still deploy).
+/images/
+/docs/
+/README.md
