@@ -180,7 +180,7 @@ p { margin: 0 0 1em; }
 
 .hero__media { position: relative; }
 .hero__media img {
-  width: 100%; aspect-ratio: 6 / 7; object-fit: cover;
+  width: 100%; aspect-ratio: 6 / 7; object-fit: cover; object-position: 52% 30%;
   border-radius: 28px; box-shadow: var(--shadow-lg);
 }
 .hero__badge {
@@ -237,12 +237,15 @@ p { margin: 0 0 1em; }
 .recipe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .recipe-card { margin: 0; position: relative; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
 .recipe-card:nth-child(even) { transform: translateY(28px); }
-.recipe-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.recipe-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform .5s ease; }
+.recipe-card:hover img { transform: scale(1.05); }
 .recipe-card figcaption {
   position: absolute; left: 10px; right: 10px; bottom: 10px;
-  padding: 8px 12px; border-radius: 10px;
-  background: rgba(255, 255, 255, .92); font-weight: 700; font-size: .9rem;
+  padding: 9px 12px; border-radius: 10px;
+  background: rgba(255, 255, 255, .94); box-shadow: var(--shadow-sm);
 }
+.recipe-card figcaption strong { display: block; font-size: .92rem; line-height: 1.25; }
+.recipe-card figcaption span { display: block; margin-top: 2px; font-size: .78rem; line-height: 1.35; color: var(--ink-2); }
 
 /* Consultation path */
 .path {
