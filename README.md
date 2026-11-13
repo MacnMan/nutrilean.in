@@ -3,7 +3,7 @@
 Website for **nutrilean.in — Get fit with Piyush**. A static site (HTML, CSS, vanilla JS) with no build step,
 hosted on GitHub + Vercel.
 
-## Pages
+## Pages.
 
 - `index.html` — home page: offer banner, hero, client transformations, simple recipes,
   consultation path, why choose us, Fat Loss Programme, what happens after you join, YouTube/Instagram reviews.
