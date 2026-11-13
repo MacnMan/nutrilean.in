@@ -74,8 +74,104 @@
     return true;
   }
 
+  function validateSlot(step) {
+    var err = step.querySelector('.step__error');
+    if (!form.querySelector('input[name="slotTime"]:checked')) {
+      err.textContent = 'Please choose a day and time for your consultation';
+      return false;
+    }
+    err.textContent = '';
+    return true;
+  }
+
   function validateStep(i) {
-    return steps[i].dataset.group ? validateGroup(steps[i]) : validateDetails();
+    if (steps[i].dataset.group) return validateGroup(steps[i]);
+    if ('slot' in steps[i].dataset) return validateSlot(steps[i]);
+    return validateDetails();
+  }
+
+  // ---------- Consultation slots ----------
+  var slotCfg = cfg.slots || { schedule: [] };
+  var slotDays = form.querySelector('[data-slot-days]');
+  var slotTimes = form.querySelector('[data-slot-times]');
+  var slotsByDate = {};
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+  // Stable pseudo-random number in [0, 1) for a string, so the same date
+  // always shows the same "booked" slots
+  function seeded(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return (h >>> 0) / 4294967296;
+  }
+
+  function formatTime(t) {
+    var p = t.split(':'), h = +p[0];
+    return (h % 12 || 12) + ':' + p[1] + ' ' + (h < 12 ? 'AM' : 'PM');
+  }
+
+  function slotsFor(date) {
+    var day = date.getDay();
+    var plan = (slotCfg.schedule || []).filter(function (s) { return s.days.indexOf(day) !== -1; })[0];
+    if (!plan) return null;
+    var key = dateKey(date);
+    var soon = new Date(Date.now() + 60 * 60 * 1000);
+    var slots = plan.times.map(function (t) {
+      var p = t.time.split(':');
+      var at = new Date(date.getFullYear(), date.getMonth(), date.getDate(), +p[0], +p[1]);
+      return { time: t.time, label: formatTime(t.time), booked: at < soon ? 'Booked' : (t.booked || '') };
+    });
+    var open = slots.filter(function (s) { return !s.booked; }).length;
+    slots.forEach(function (s) {
+      if (s.booked || open <= (slotCfg.minOpen || 0)) return;
+      if (seeded(key + s.time) < (slotCfg.randomBooked || 0)) { s.booked = 'Booked'; open--; }
+    });
+    return slots;
+  }
+
+  function renderSlotTimes(key) {
+    var slots = slotsByDate[key] || [];
+    slotTimes.innerHTML = slots.map(function (s) {
+      return '<label class="slot-time"><input type="radio" name="slotTime" value="' + s.time + '"' + (s.booked ? ' disabled' : '') + '>' +
+        '<span>' + s.label + (s.booked ? '<small>' + s.booked + '</small>' : '') + '</span></label>';
+    }).join('');
+  }
+
+  function renderSlotDays() {
+    if (!slotDays) return;
+    var html = '';
+    var first = null;
+    var today = new Date();
+    for (var i = 0; i < (slotCfg.daysAhead || 14); i++) {
+      var d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i);
+      var slots = slotsFor(d);
+      if (!slots) continue;
+      var key = dateKey(d);
+      var open = slots.filter(function (s) { return !s.booked; }).length;
+      slotsByDate[key] = slots;
+      if (open && !first) first = key;
+      html += '<label class="slot-day"><input type="radio" name="slotDate" value="' + key + '"' + (open ? '' : ' disabled') + '>' +
+        '<span><small>' + d.toLocaleDateString('en-IN', { weekday: 'short' }) + '</small>' +
+        '<strong>' + d.getDate() + '</strong>' +
+        '<small>' + d.toLocaleDateString('en-IN', { month: 'short' }) + '</small>' +
+        '<em>' + (open ? open + ' open' : 'Full') + '</em></span></label>';
+    }
+    slotDays.innerHTML = html;
+    if (first) {
+      slotDays.querySelector('input[value="' + first + '"]').checked = true;
+      renderSlotTimes(first);
+    }
+  }
+
+  function chosenSlot() {
+    var date = form.querySelector('input[name="slotDate"]:checked');
+    var time = form.querySelector('input[name="slotTime"]:checked');
+    if (!date || !time) return '';
+    var p = date.value.split('-');
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }) + ', ' + formatTime(time.value);
   }
 
   // Live-clear errors once the user corrects them
@@ -93,6 +189,10 @@
   form.addEventListener('change', function (e) {
     var input = e.target;
     if (input.type === 'radio' && input.name === 'gender') setError(input);
+    if (input.name === 'slotDate') renderSlotTimes(input.value);
+    if (input.name === 'slotDate' || input.name === 'slotTime') {
+      input.closest('.step').querySelector('.step__error').textContent = '';
+    }
     if (input.type !== 'checkbox') return;
 
     var step = input.closest('.step');
@@ -140,6 +240,7 @@
       goal: values('goal').join(', '),
       conditions: values('conditions').join(', '),
       tried: tried.join(', '),
+      slot: chosenSlot(),
       submittedAt: new Date().toISOString(),
       page: location.href
     };
@@ -156,7 +257,8 @@
       'Age: ' + d.age,
       'Goal: ' + d.goal,
       'Health conditions: ' + d.conditions,
-      'Tried before: ' + d.tried
+      'Tried before: ' + d.tried,
+      'Preferred slot: ' + d.slot
     ].join('\n');
   }
 
@@ -167,6 +269,7 @@
     firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
     success.querySelector('[data-success-name]').textContent = firstName;
     success.querySelector('[data-success-phone]').textContent = d.contact.replace(/^\+91(\d{5})(\d{5})$/, '+91 $1 $2');
+    success.querySelector('[data-success-slot]').textContent = d.slot;
     success.querySelector('[data-success-whatsapp]').href =
       'https://wa.me/' + cfg.whatsappNumber + '?text=' + encodeURIComponent(whatsappMessage(d));
     success.hidden = false;
@@ -207,5 +310,6 @@
     send.then(function () { showSuccess(data); });
   });
 
+  renderSlotDays();
   showStep(0);
 })();

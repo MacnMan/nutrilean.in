@@ -59,7 +59,7 @@
       <div class="form-card">
         <form id="booking-form" novalidate>
           <div class="progress" aria-hidden="true">
-            <div class="progress__meta"><span data-step-label>Step 1 of 4</span><span data-step-name>Your details</span></div>
+            <div class="progress__meta"><span data-step-label>Step 1 of 5</span><span data-step-name>Your details</span></div>
             <div class="progress__track"><div class="progress__bar"></div></div>
           </div>
 
@@ -151,6 +151,15 @@
             <p class="step__error" role="alert"></p>
           </fieldset>
 
+          <!-- Step 5: Consultation slot -->
+          <fieldset class="step" data-step="5" data-name="Your slot" data-slot hidden>
+            <legend>Pick your consultation slot</legend>
+            <p class="step__hint">Consultations run Thursday to Sunday. Slots fill up fast — choose a day, then a time.</p>
+            <div class="slot-days" data-slot-days role="radiogroup" aria-label="Day"></div>
+            <div class="slot-times" data-slot-times role="radiogroup" aria-label="Time"></div>
+            <p class="step__error" role="alert"></p>
+          </fieldset>
+
           <div class="form-nav">
             <button type="button" class="btn btn--ghost" data-prev hidden><svg class="icon"><use href="#i-back"/></svg>Back</button>
             <button type="submit" class="btn btn--primary" data-next>Submit &amp; next <svg class="icon"><use href="#i-arrow"/></svg></button>
@@ -168,7 +177,7 @@
 
           <ol class="success__next">
             <li><span>1</span><div><strong>We review your answers</strong><small>Your nutritionist studies your goals and health details</small></div></li>
-            <li><span>2</span><div><strong>We call you on <span data-success-phone></span></strong><small>To schedule your 1-on-1 consultation</small></div></li>
+            <li><span>2</span><div><strong>We call you on <span data-success-phone></span></strong><small>For your 1-on-1 consultation on <span data-success-slot></span></small></div></li>
             <li><span>3</span><div><strong>Your personalised plan begins</strong><small>Home-cooked food. No supplements. No shortcuts.</small></div></li>
           </ol>
 

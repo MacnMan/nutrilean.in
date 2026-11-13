@@ -20,4 +20,8 @@ will be converted and added.
 | --- | --- | --- |
 | `hero.jpg` | Top of home page (coach / client collage) | 900 × 1050 (portrait) |
 | `og-image.jpg` | Preview when the link is shared on WhatsApp / social | 1200 × 630 |
-| `reviews/review-1.jpg` … `review-3.jpg` | YouTube / Instagram review thumbnails | 640 × 360 (16:9) |
+
+## Client videos
+
+Videos live in `assets/videos/` (compressed to 540 × 960 MP4) with a cover image
+in `assets/images/videos/<name>.webp`. List them under `videos` in `js/config.js`.

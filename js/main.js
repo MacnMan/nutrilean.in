@@ -66,21 +66,58 @@
     }).join('');
   }
 
-  // YouTube / Instagram reviews
-  var rGrid = document.querySelector('[data-reviews]');
-  if (rGrid && cfg.reviews) {
-    rGrid.innerHTML = cfg.reviews.map(function (r) {
-      var icon = r.platform === 'instagram' ? 'i-instagram' : 'i-youtube';
-      var label = r.platform === 'instagram' ? 'Instagram' : 'YouTube';
-      return '<a class="review-card review-card--' + escapeHtml(r.platform) + ' reveal" href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener">' +
-        '<span class="review-card__media">' +
-        '<img src="' + escapeHtml(r.thumbnail) + '" alt="" width="640" height="360" loading="lazy">' +
-        '<span class="review-card__play"><svg class="icon"><use href="#i-play"/></svg></span>' +
-        '</span>' +
-        '<span class="review-card__body"><svg class="icon"><use href="#' + icon + '"/></svg>' +
-        '<span><strong>' + escapeHtml(r.title) + '</strong><small>Watch on ' + label + '</small></span></span>' +
-        '</a>';
+  // Client video stories — videos only download when played
+  var vTrack = document.querySelector('[data-videos]');
+  if (vTrack && cfg.videos) {
+    vTrack.innerHTML = cfg.videos.map(function (v) {
+      return '<figure class="video-card">' +
+        '<div class="video-card__media">' +
+        '<video src="' + escapeHtml(v.video) + '" poster="' + escapeHtml(v.poster) + '" preload="none" muted loop playsinline width="540" height="960" aria-label="' + escapeHtml(v.name) + '\'s story"></video>' +
+        '</div>' +
+        '<figcaption><strong>' + escapeHtml(v.result) + '</strong><span>' + escapeHtml(v.name) + '</span></figcaption>' +
+        '</figure>';
     }).join('');
+
+    // Stories play muted on hover (or when scrolled into view on touch screens)
+    // and pause when the pointer leaves. Clicking a playing story toggles sound.
+    var videos = Array.prototype.slice.call(vTrack.querySelectorAll('video'));
+    var play = function (video) {
+      videos.forEach(function (o) { if (o !== video) o.pause(); });
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+    var canHover = window.matchMedia('(hover: hover)').matches;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    videos.forEach(function (video) {
+      if (canHover) {
+        video.addEventListener('mouseenter', function () { play(video); });
+        video.addEventListener('mouseleave', function () { video.pause(); });
+      }
+      video.addEventListener('click', function () {
+        if (video.paused) { play(video); return; }
+        video.muted = !video.muted;
+      });
+    });
+
+    if (!canHover && !reduceMotion && 'IntersectionObserver' in window) {
+      var vo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.intersectionRatio >= 0.7) play(entry.target);
+          else entry.target.pause();
+        });
+      }, { threshold: [0, 0.7] });
+      videos.forEach(function (v) { vo.observe(v); });
+    }
+
+    var scrollBy = function (dir) {
+      var card = vTrack.querySelector('.video-card');
+      vTrack.scrollBy({ left: dir * (card ? card.offsetWidth + 16 : 280) * 2, behavior: 'smooth' });
+    };
+    var prev = document.querySelector('[data-video-prev]');
+    var next = document.querySelector('[data-video-next]');
+    if (prev) prev.addEventListener('click', function () { scrollBy(-1); });
+    if (next) next.addEventListener('click', function () { scrollBy(1); });
   }
 
   // Mobile nav
