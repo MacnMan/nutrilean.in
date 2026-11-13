@@ -194,19 +194,19 @@ p { margin: 0 0 1em; }
 .hero__badge span { font-size: .85rem; color: var(--ink-2); }
 
 /* ---------- Sections ---------- */
-.section { padding: 88px 0; }
+.section { padding: 56px 0; }
 .section--tint { background: var(--blue-50); }
 .section--dark { background: var(--blue-900); color: var(--white); }
 .section--dark .eyebrow { color: var(--accent); }
-.section__head { max-width: 680px; margin: 0 auto 48px; text-align: center; }
+.section__head { max-width: 680px; margin: 0 auto 32px; text-align: center; }
 .section__head p:last-child { color: var(--ink-2); font-size: 1.08rem; margin: 0; }
-.section__cta { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 48px; }
+.section__cta { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 32px; }
 .section__cta-note { font-weight: 600; color: #b94d00; font-size: .95rem; }
 
 /* Transformations */
-.transform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 520px)); justify-content: center; gap: 20px; }
+.transform-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
 .transform-card {
-  margin: 0; overflow: hidden;
+  flex: 0 1 360px; margin: 0; overflow: hidden;
   background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm);
   transition: transform .25s ease, box-shadow .25s ease;
 }
@@ -215,6 +215,7 @@ p { margin: 0 0 1em; }
 .transform-card__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: var(--white); }
 .transform-card__photo { position: relative; }
 .transform-card__pair img { aspect-ratio: 2 / 3; }
+.transform-card img.transform-card__single { aspect-ratio: auto; height: auto; }
 .transform-card__tag {
   position: absolute; left: 10px; bottom: 10px;
   padding: 5px 12px; border-radius: 999px;
@@ -227,7 +228,7 @@ p { margin: 0 0 1em; }
 .transform-card figcaption span { font-size: .9rem; color: var(--ink-2); }
 
 /* Experts */
-.expert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 380px)); justify-content: center; gap: 24px; }
+.expert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); justify-content: center; gap: 24px; }
 .expert-card {
   overflow: hidden;
   background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm);
@@ -667,7 +668,7 @@ p { margin: 0 0 1em; }
 @media (max-width: 600px) {
   :root { --header-h: 64px; }
   .container { padding: 0 16px; }
-  .section { padding: 64px 0; }
+  .section { padding: 40px 0; }
   .hero { padding: 32px 0 56px; }
   .hero__actions .btn { flex: 1 1 100%; }
   .hero__stats li { flex-basis: calc(50% - 7px); padding: 12px 14px; }
@@ -675,7 +676,8 @@ p { margin: 0 0 1em; }
   .feature-grid { grid-template-columns: 1fr; }
   .video-card { flex-basis: 72%; }
   .video-rail__btn { display: none; }
-  .transform-grid, .expert-grid { grid-template-columns: 1fr; }
+  .expert-grid { grid-template-columns: 1fr; }
+  .transform-card { flex-basis: 100%; }
   .transform-card figcaption { padding: 10px 12px 12px; font-size: .9rem; }
   .recipe-grid { gap: 12px; }
   .recipe-card:nth-child(even) { transform: translateY(16px); }

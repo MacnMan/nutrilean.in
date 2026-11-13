@@ -49,7 +49,7 @@
       return '<div class="transform-card__photo">' +
         '<img src="' + escapeHtml(p.image) + '"' + responsive(p.image, '(max-width: 600px) 50vw, 260px') +
         ' alt="' + escapeHtml(alt) + '" width="400" height="600" loading="lazy" decoding="async">' +
-        '<span class="transform-card__tag transform-card__tag--' + tag + '">' + tag + (p.label ? ' · ' + escapeHtml(p.label) : '') + '</span>' +
+        (p.tag === false ? '' : '<span class="transform-card__tag transform-card__tag--' + tag + '">' + tag + (p.label ? ' · ' + escapeHtml(p.label) : '') + '</span>') +
         '</div>';
     };
     tGrid.innerHTML = cfg.transformations.map(function (t) {
@@ -58,8 +58,8 @@
             photo(t.before, 'Before', t.name + ' before') +
             photo(t.after, 'After', t.name + ' after') +
           '</div>'
-        : '<img src="' + escapeHtml(t.image) + '"' + responsive(t.image, '(max-width: 600px) 100vw, 520px') +
-          ' alt="' + escapeHtml(t.name + ' — ' + t.result) + '" width="600" height="750" loading="lazy" decoding="async">';
+        : '<img class="transform-card__single" src="' + escapeHtml(t.image) + '"' + responsive(t.image, '(max-width: 600px) 100vw, 360px') +
+          ' alt="' + escapeHtml(t.name + ' — ' + t.result) + '" width="800" height="1200" loading="lazy" decoding="async">';
       return '<figure class="transform-card reveal">' + media +
         '<figcaption><strong>' + escapeHtml(t.result) + '</strong><span>' + escapeHtml(t.name) + '</span></figcaption>' +
         '</figure>';

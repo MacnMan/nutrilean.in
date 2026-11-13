@@ -83,6 +83,35 @@ window.NUTRILEAN = {
       result: '21 kg fat loss in 90 days',
       before: { image: 'assets/images/transformations/gauransh-shivatare-before.webp' },
       after: { image: 'assets/images/transformations/gauransh-shivatare-after.webp' }
+    },
+    {
+      name: 'Samir Ghate, Pune',
+      result: '60 kg fat loss in 1 year',
+      before: { image: 'assets/images/transformations/samir-ghate-before.webp' },
+      after: { image: 'assets/images/transformations/samir-ghate-after.webp' }
+    },
+    {
+      name: 'Devraj Patil, Pune',
+      result: '16 kg lean bulk — Pune Shree 2025 bodybuilding prep',
+      before: { image: 'assets/images/transformations/devraj-patil-before.webp' },
+      after: { image: 'assets/images/transformations/devraj-patil-after.webp' }
+    },
+    {
+      name: 'Avdhut Chikurde, Karnataka',
+      result: '12 kg fat loss in 90 days',
+      before: { image: 'assets/images/transformations/avdhut-chikurde-before.webp' },
+      after: { image: 'assets/images/transformations/avdhut-chikurde-after.webp' }
+    },
+    {
+      name: 'Shreehari Padhey',
+      result: '9 kg weight loss in 21 days',
+      before: { image: 'assets/images/transformations/shreehari-padhey-before.webp' },
+      after: { image: 'assets/images/transformations/shreehari-padhey-after.webp' }
+    },
+    {
+      name: 'Shailesh Jadhav, Pune',
+      result: 'Mr. India & Mr. Maharashtra',
+      image: 'assets/images/transformations/shailesh-jadhav.webp'
     }
     // Single photo instead of before/after:
     // { name: 'Client name', result: 'Lost 12 kg in 4 months', image: 'assets/images/transformations/client-2.jpg' }
@@ -92,6 +121,7 @@ window.NUTRILEAN = {
   // video: compressed .mp4 in assets/videos/, poster: cover image shown before play.
   videos: [
     { name: 'Om Shedage', result: '38 kg fat loss in 5 months', video: 'assets/videos/om-shedage.mp4', poster: 'assets/images/videos/om-shedage.webp' },
+    { name: 'Sahil Salgar', result: '40 kg fat loss in 5 months', video: 'assets/videos/sahil-salgar.mp4', poster: 'assets/images/videos/sahil-salgar.webp' },
     { name: 'Prathamesh Jadhav', result: '25 kg fat loss in 5 months', video: 'assets/videos/prathamesh-jadhav.mp4', poster: 'assets/images/videos/prathamesh-jadhav.webp' },
     { name: 'Akshay Kadekar', result: '23 kg fat loss in 5 months — Mr. Pune Shree 2025 bodybuilding prep', video: 'assets/videos/akshay-kadekar.mp4', poster: 'assets/images/videos/akshay-kadekar.webp' },
     { name: 'Gauransh Shivatare', result: '21 kg fat loss in 90 days', video: 'assets/videos/gauransh-shivatare.mp4', poster: 'assets/images/videos/gauransh-shivatare.webp' },
@@ -100,6 +130,7 @@ window.NUTRILEAN = {
     { name: 'Prathamesh Yadav', result: '15 kg fat loss in 3 months', video: 'assets/videos/prathamesh-yadav.mp4', poster: 'assets/images/videos/prathamesh-yadav.webp' },
     { name: 'Prajwal Wedpathak', result: '11 kg fat loss in 2 months', video: 'assets/videos/prajwal-wedpathak.mp4', poster: 'assets/images/videos/prajwal-wedpathak.webp' },
     { name: 'Omkar Kumkar', result: '7 kg weight loss in 9 days', video: 'assets/videos/omkar-kumkar.mp4', poster: 'assets/images/videos/omkar-kumkar.webp' },
+    { name: 'Aditi Kondhe', result: '5 kg fat loss in 1 month + thyroid control', video: 'assets/videos/aditi-kondhe.mp4', poster: 'assets/images/videos/aditi-kondhe.webp' },
     { name: 'Rohit Barage', result: '6 kg fat loss in 1 month + hair fall recovery', video: 'assets/videos/rohit-barage.mp4', poster: 'assets/images/videos/rohit-barage.webp' },
     { name: 'Miss Zatale', result: 'Her first counselling experience', video: 'assets/videos/zatale-first-counselling.mp4', poster: 'assets/images/videos/zatale-first-counselling.webp' }
   ]
