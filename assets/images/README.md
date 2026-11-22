@@ -19,7 +19,7 @@ will be converted and added.
 | File | Where it shows | Suggested size |
 | --- | --- | --- |
 | `hero.jpg` | Top of home page (coach / client collage) | 900 × 1050 (portrait) |
-| `og-image.jpg` | Preview when the link is shared on WhatsApp / social | 1200 × 630 |
+| `og-image.jpg` | Preview when the link is shared on WhatsApp / social (done — replace to change) | 1200 × 630 |
 
 ## Client videos
 
