@@ -1,5 +1,4 @@
 {
-  "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
     {
@@ -7,7 +6,12 @@
       "has": [{ "type": "host", "value": "nutrileanin.vercel.app" }],
       "destination": "https://www.nutrilean.in/:path*",
       "permanent": true
-    }
+    },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/book.html", "destination": "/book", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/book", "destination": "/book.html" }
   ],
   "headers": [
     {
